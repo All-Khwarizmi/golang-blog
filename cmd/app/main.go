@@ -9,6 +9,7 @@ import (
 	"os/signal"
 	"time"
 
+	"github.com/All-Khwarizmi/golang-blog/internal/routes"
 	"github.com/All-Khwarizmi/golang-blog/internal/web/pages"
 	"github.com/gin-gonic/gin"
 )
@@ -18,6 +19,9 @@ func main() {
 	sm := gin.New()
 	sm.LoadHTMLGlob("../../internal/web/templates/*")
 	sm.GET("/index", pages.Login)
+	sm.POST("/login", routes.LoginHandler)
+
+	sm.GET("/home-page", pages.Home)
 
 	srv := &http.Server{
 		Addr:         ":9090",

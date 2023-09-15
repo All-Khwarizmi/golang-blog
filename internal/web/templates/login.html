@@ -38,13 +38,17 @@
       };
     </script>
   </head>
-  <body class="p-5 bg-slate-800 text-white">
+  <body name="body" class="p-5 bg-slate-800 text-white">
     <main class="grid h-screen place-items-center">
       <div>
         <div class="pb-8">
           <h1 class="text-4xl text-extrabold">{{ .title }}</h1>
         </div>
-        <form class="flex flex-col">
+        <form
+          hx-target="body"
+          hx-post="http://localhost:9090/login"
+          class="flex flex-col"
+        >
           <label class="pb-2" for="username"> Email </label>
           <input class="text-black" type="email" name="username" type="text" />
           <label class="py-2" for="password"> Password </label>
