@@ -9,6 +9,6 @@ import (
 func Login(c *gin.Context) {
 
 	c.HTML(http.StatusOK, "login.html", gin.H{
-		"title": "Blog's Stret",
+		"title": "Blog's Street",
 	})
 }
