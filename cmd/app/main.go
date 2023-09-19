@@ -9,6 +9,7 @@ import (
 	"os/signal"
 	"time"
 
+	"github.com/All-Khwarizmi/golang-blog/internal/middlewares"
 	"github.com/All-Khwarizmi/golang-blog/internal/routes"
 	"github.com/All-Khwarizmi/golang-blog/internal/web/pages"
 	"github.com/gin-gonic/gin"
@@ -20,7 +21,12 @@ func main() {
 	sm.LoadHTMLGlob("../../internal/web/templates/*")
 	sm.GET("/index", pages.Login)
 	sm.POST("/login", routes.LoginHandler)
+	// Protected routes
+	// Set environement variable
 
+	protected := sm.Group("/protected")
+	protected.Use(middlewares.Auth())
+	protected.GET("/home-page", pages.ProtectedHome)
 	sm.GET("/home-page", pages.Home)
 
 	srv := &http.Server{

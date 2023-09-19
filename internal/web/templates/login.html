@@ -11,6 +11,7 @@
       integrity="sha384-xcuj3WpfgjlKF+FXhSQFQ0ZNr39ln+hwjN3npfM9VBnUskLolQAcN80McRIVOPuO"
       crossorigin="anonymous"
     ></script>
+    <script src="https://unpkg.com/htmx.org/dist/ext/json-enc.js"></script>
     <script>
       tailwind.config = {
         theme: {
@@ -47,16 +48,26 @@
         <form
           hx-target="body"
           hx-post="http://localhost:9090/login"
+          hx-ext="json-enc"
           class="flex flex-col"
         >
           <label class="pb-2" for="username"> Email </label>
-          <input class="text-black" type="email" name="username" type="text" />
+          <input
+            class="text-black"
+            type="email"
+            name="email"
+            required
+            maxlength="140"
+            autofocus
+          />
           <label class="py-2" for="password"> Password </label>
           <input
             class="text-black"
             type="password"
-            name="password"
-            type="text"
+            name="name"
+            required
+            minlength="6"
+            pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,12}$"
           />
           <div class="p-5 bg-red h-5 grid place-items-center">
             <button

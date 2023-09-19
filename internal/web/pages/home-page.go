@@ -11,3 +11,9 @@ func Home(c *gin.Context) {
 		"title": "Home Page",
 	})
 }
+
+func ProtectedHome(c *gin.Context) {
+	c.HTML(http.StatusOK, "home-page.html", gin.H{
+		"title": "Protected Home Page",
+	})
+}
