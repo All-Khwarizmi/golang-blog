@@ -9,33 +9,18 @@ import (
 	"os/signal"
 	"time"
 
-	"github.com/All-Khwarizmi/golang-blog/internal/middlewares"
 	"github.com/All-Khwarizmi/golang-blog/internal/routes"
-	"github.com/All-Khwarizmi/golang-blog/internal/web/pages"
 	"github.com/gin-gonic/gin"
 )
 
 func main() {
 
 	sm := gin.New()
-	sm.LoadHTMLGlob("../../internal/web/templates/*")
-	sm.GET("/index", pages.Login)
-	sm.POST("/login", routes.LoginHandler)
-	// Protected routes
-	// Set environement variable
 
-	protected := sm.Group("/protected")
-	protected.Use(middlewares.Auth())
-	protected.GET("/home-page", pages.ProtectedHome)
-	sm.GET("/home-page", pages.Home)
+	routes.Public(sm)
+	routes.Auth(sm)
 
-	srv := &http.Server{
-		Addr:         ":9090",
-		ReadTimeout:  1 * time.Second,
-		WriteTimeout: 1 * time.Second,
-		IdleTimeout:  120 * time.Second,
-		Handler:      sm,
-	}
+	srv := ServerConfigWrapper(sm)
 
 	// Initializing the server in a goroutine so that
 	// it won't block the graceful shutdown handling below
